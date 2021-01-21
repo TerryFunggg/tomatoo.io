@@ -1,3 +1,7 @@
 @mixin border-for-testing {
     border: 1px solid #000;
 }
+
+@mixin btn-hover {
+    background-color: darken($primary-color, 5%);
+}

@@ -32,9 +32,18 @@ nav {
         i {
             padding: 5px;
         }
+
+        a:hover{
+            @include btn-hover;
+        }
         
         &-report {
             margin-right: 30px;
+            padding: 5px;
+        }
+
+        &-setting{
+            padding: 5px;
         }
     }
 }

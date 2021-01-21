@@ -4,7 +4,12 @@
   "description": "* Developing...",
   "main": "index.js",
   "scripts": {
-    "sass": "node-sass -w scss/ -o public/css --recursive"
+    "watch:sass": "node-sass -w scss/ -o public/css --recursive",
+    "watch:coffee": "coffee -o public/js/ -cw coffee/ ",
+    "watch": "concurrently \"npm:watch:sass\" \"npm:watch:coffee\"",
+    "build:sass": "node-sass scss -o public/css --recursive",
+    "build:coffee": "coffee -o public/js/ -c coffee/ ",
+    "build": "npm run build:sass && npm run build:coffee"
   },
   "repository": {
     "type": "git",
@@ -18,5 +23,9 @@
   "homepage": "https://github.com/TerryFunggg/tomatoo#readme",
   "dependencies": {
     "node-sass": "^5.0.0"
+  },
+  "devDependencies": {
+    "coffeescript": "^2.5.1",
+    "concurrently": "^5.3.0"
   }
 }

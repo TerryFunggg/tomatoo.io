@@ -72,6 +72,7 @@ main{
             padding: 10px 40px;
             cursor: pointer;
             border-radius: 5px;
+            text-transform: uppercase;
 
             &:hover {
                 background-color: darken($light-color, 4%);

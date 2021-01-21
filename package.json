@@ -1,0 +1,22 @@
+{
+  "name": "tomatoo",
+  "version": "1.0.0",
+  "description": "* Developing...",
+  "main": "index.js",
+  "scripts": {
+    "sass": "node-sass -w scss/ -o public/css --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TerryFunggg/tomatoo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TerryFunggg/tomatoo/issues"
+  },
+  "homepage": "https://github.com/TerryFunggg/tomatoo#readme",
+  "dependencies": {
+    "node-sass": "^5.0.0"
+  }
+}

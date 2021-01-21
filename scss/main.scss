@@ -1,0 +1,75 @@
+@import "variables";
+@import "functions";
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: $primary-color;
+    color:$light-color;
+    display: grid;
+    grid-template-rows: 60px auto;
+
+    a {
+        text-decoration: none;
+        color: $light-color;
+    }
+
+
+nav {
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .tools {
+        font-size: 1rem;
+
+        i {
+            padding: 5px;
+        }
+        
+        &-report {
+            margin-right: 30px;
+        }
+    }
+}
+
+main{
+    .tomato{
+        
+
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+
+        .timer {
+            text-align: center;
+            font-size: 5rem;
+            font-weight: bold;
+        }
+
+        &-btn {
+            border: none;
+            margin-top: 40px;
+            color: $primary-color;
+            background-color: $light-color;
+            font-size: 2rem;
+            padding: 10px 40px;
+            cursor: pointer;
+            border-radius: 5px;
+
+            &:hover {
+                background-color: darken($light-color, 4%);
+            }
+        }
+    }
+}
+
+}

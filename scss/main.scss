@@ -5,79 +5,103 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 body {
     background-color: $primary-color;
-    color:$light-color;
+    color: $light-color;
     display: grid;
-    grid-template-rows: 60px auto;
+    grid-template-rows: 60px auto 10px;
 
     a {
         text-decoration: none;
         color: $light-color;
     }
 
-
-nav {
-    
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-
-    .tools {
-        font-size: 1rem;
-
-        i {
-            padding: 5px;
-        }
-
-        a:hover{
-            @include btn-hover;
-        }
-        
-        &-report {
-            padding: 5px;
-        }
-
-        &-setting{
-            padding: 5px;
-        }
-    }
-}
-
-main{
-    .tomato{
-        
+    nav {
         display: flex;
-        flex-direction: column;
-        height: 100vh;
-        justify-content: center;
         align-items: center;
+        justify-content: space-around;
 
-        .timer {
-            text-align: center;
-            font-size: 5rem;
-            font-weight: bold;
-        }
+        .tools {
+            font-size: 1rem;
 
-        &-btn {
-            border: none;
-            margin-top: 40px;
-            color: $primary-color;
-            background-color: $light-color;
-            font-size: 2rem;
-            padding: 10px 40px;
-            cursor: pointer;
-            border-radius: 5px;
-            text-transform: uppercase;
+            i {
+                padding: 5px;
+            }
 
-            &:hover {
-                background-color: darken($light-color, 4%);
+            a:hover {
+                @include btn-hover;
+            }
+
+            &-report {
+                padding: 5px;
+            }
+
+            &-setting {
+                padding: 5px;
             }
         }
     }
-}
 
+    main {
+        .tomato {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+
+            .timer {
+                text-align: center;
+                font-size: 5rem;
+                font-weight: bold;
+            }
+
+            &-btn {
+                border: none;
+                margin-top: 40px;
+                color: $primary-color;
+                background-color: $light-color;
+                font-size: 2rem;
+                padding: 10px 40px;
+                cursor: pointer;
+                border-radius: 5px;
+                text-transform: uppercase;
+
+                &:hover {
+                    background-color: darken($light-color, 4%);
+                }
+            }
+
+            &-status {
+                padding: 20px 10px;
+                border-radius: 5px;
+                display: flex;
+                margin-top: 40px;
+                height: 20px;
+                align-items: center;
+                justify-content: center;
+
+                img {
+                    width: 50px;
+                    height: 50px;
+                    padding: 10px;
+                }
+            }
+        }
+    }
+
+    footer {
+        padding: 10px;
+        background-color: $light-color;
+        color: $dark-color;
+        text-align: center;
+        font-size: 0.9rem;
+
+        a {
+            color: darken($primary-color, 10%);
+        }
+    }
 }

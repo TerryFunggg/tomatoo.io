@@ -66,7 +66,8 @@ Core = do (UIController) ->
         sec--
         return  UIController.updateClock sec if sec > 0
         # finish
-        new Audio('../alert.mp3').play()
+        audio =  new Audio('../alert.mp3')
+        await audio.play()
         cleanUpInterval()
         UIController.updateClock config.tomato * 60
         # add status

@@ -1,5 +1,5 @@
 config = 
-    tomato: .1,
+    tomato: 25,
     short: 5,
     long: 15
     interval: 4
@@ -17,7 +17,7 @@ UIController =  do ->
 
     {
         getDom
-        getSelector: () -> selector
+        getSelector: -> selector
         
         addDoneStatus: ->
             status = document.querySelector(".#{selector.tomato_status}")
@@ -43,12 +43,12 @@ Core = do (UIController) ->
     sec = 0
     numOfTomato = 0;
 
-    cleanUpInterval = () ->
+    cleanUpInterval = ->
         clearInterval interval
         interval = null
         sec = 0
     
-    cleanUpStatus =  ->
+    cleanUpStatus = ->
         UIController.emptyStatus()
         numOfTomato = 0;
     
@@ -62,7 +62,7 @@ Core = do (UIController) ->
         
 
      # action for each interval loop, update timer clock            
-    looping = () ->
+    looping = ->
         sec--
         return  UIController.updateClock sec if sec > 0
         # finish
@@ -92,15 +92,15 @@ Core = do (UIController) ->
 # App controller
 App = do (Core,UIController) ->
     timer_click = () -> App.start()
-    loadEventListeners = () ->
+    loadEventListeners = ->
         selector = UIController.getSelector()
         UIController.getDom(selector.timer_btn).addEventListener("click", timer_click)
     {
-        init: () ->
+        init: ->
             console.log "app init..."
             loadEventListeners()
 
-        start: () -> Core.startTimer(config.tomato)
+        start: -> Core.startTimer(config.tomato)
     }
 
 App.init()

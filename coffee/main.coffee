@@ -43,6 +43,8 @@ Core = do (UIController) ->
         new Audio('../alert.mp3').play()
         cleanUp()
         UIController.updateClock config.tomato * 60
+        # goto short/long break if finish a tomato
+
     {    
         startTimer: (mins) ->
             if interval is null and sec is 0
@@ -50,7 +52,8 @@ Core = do (UIController) ->
                 UIController.updateTimerBtn "Stop"
                 interval = setInterval(looping, 1000)
             else
-                clearInterval interval
+                # user type the stop btn
+                cleanUp()
                 UIController.updateTimerBtn "Start"
                 UIController.updateClock config.tomato * 60
     }

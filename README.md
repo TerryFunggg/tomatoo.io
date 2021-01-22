@@ -4,7 +4,9 @@ Now host on Githubpages. Please visit : https://terryfunggg.github.io/tomatoo.io
 
 ### log
 
-#### (developing) v2 implement short/long break cycle
+#### (developing) v3 implement short/long break cycle
+
+#### v2 add tomato status under start btn
 
 #### v1 done basic function for count down
 

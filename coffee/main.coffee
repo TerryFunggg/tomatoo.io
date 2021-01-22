@@ -13,7 +13,7 @@ UIController =  do ->
         tomato_status: "tomato-status"
 
     getDom = (id) -> document.getElementById id
-    getDoneIcon = -> '<img src="/img/tomato.svg" />'
+    getDoneIcon = -> '<img src="tomato.svg" />'
 
     {
         getDom

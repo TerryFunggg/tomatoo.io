@@ -6,11 +6,11 @@ config =
 
 # NotificationController
 Notify = do ->
-    checkBrowserSupportNotify = () -> 'Notification' in window
-    checkPermissionEnabled = () -> 
-        Notification.permission isnt 'granted' && Notification.permission isnt 'denied'
+    checkBrowserSupportNotify = -> 'Notification' in window
+    checkPermissionEnabled = -> 
+        Notification.permission isnt 'granted' and Notification.permission isnt 'denied'
     permissionIsGranted = ( permission ) -> permission is 'granted'
-    enableNotify = () ->
+    enableNotify = ->
         if checkBrowserSupportNotify and checkPermissionEnabled
             Notification.requestPermission().then( permissionIsGranted )
     {
@@ -27,29 +27,29 @@ UIController =  do ->
         timer_btn: "tomato-btn"
         tomato_status: "tomato-status"
 
-    getDom = (id) -> document.getElementById id
-    getDoneIcon = -> '<img src="tomato.svg" />'
+    domByID = (id) -> document.getElementById id
+    tomatoIcon = -> '<img src="tomato.svg" />'
 
     {
-        getDom
+        domByID,
         getSelector: -> selector
         
-        addDoneStatus: ->
+        addTomato: ->
             status = document.querySelector(".#{selector.tomato_status}")
-            status.innerHTML += getDoneIcon()
+            status.innerHTML += tomatoIcon()
 
-        emptyStatus: ->
+        emptyTomatoes: ->
             status = document.querySelector(".#{selector.tomato_status}")
             status.innerHTML = "";
 
-        updateClock: (sec) ->
+        updateTimer: (sec) ->
             minutes = Math.floor(sec/60) + ""
             seconds = sec % 60 + ""
-            getDom(selector.min).innerHTML =  minutes.padStart(2,'0')
-            getDom(selector.sec).innerHTML =  seconds.padStart(2,'0')
+            domByID(selector.min).innerHTML =  minutes.padStart(2,'0')
+            domByID(selector.sec).innerHTML =  seconds.padStart(2,'0')
 
         updateTimerBtn: (str) ->
-            getDom(selector.timer_btn).innerHTML = str
+            domByID(selector.timer_btn).innerHTML = str
     }
 
 # Core of tomatoo
@@ -63,27 +63,27 @@ Core = do (UIController,Notify) ->
         interval = null
         sec = 0
     
-    cleanUpStatus = ->
-        UIController.emptyStatus()
+    cleanUpTomatoes = ->
+        UIController.emptyTomatoes()
         numOfTomato = 0;
     
     addTomatoStatus = ->
         if  numOfTomato < 4
             numOfTomato++
-            UIController.addDoneStatus()
+            UIController.addTomato()
 
     checkStatus = -> 
-        cleanUpStatus() if numOfTomato >= 4
+        cleanUpTomatoes() if numOfTomato >= 4
         
 
      # action for each interval loop, update timer clock            
     looping = ->
         sec--
-        return  UIController.updateClock sec if sec > 0
+        return  UIController.updateTimer sec if sec > 0
         # finish a tomato
         Notify.send("You finish a tomato! Take a rest~");
         cleanUpInterval()
-        UIController.updateClock config.tomato * 60
+        UIController.updateTimer config.tomato * 60
         addTomatoStatus()
         # TODO: goto short/long break if finish a tomato
         UIController.updateTimerBtn "Start"
@@ -100,23 +100,24 @@ Core = do (UIController,Notify) ->
                 # user type the stop btn
                 cleanUpInterval()
                 UIController.updateTimerBtn "Start"
-                UIController.updateClock config.tomato * 60
+                UIController.updateTimer config.tomato * 60
     }
 
 # App controller
 App = do (Core,UIController,Notify) ->
-    timer_click = () -> App.start()
+    timer_click = () -> start()
     loadEventListeners = ->
         selector = UIController.getSelector()
-        UIController.getDom(selector.timer_btn).addEventListener("click", timer_click)
+        UIController.domByID(selector.timer_btn).addEventListener("click", timer_click)
+    
+    start =  -> Core.startTimer(config.tomato)
+
     {
         init: ->
             console.log "app init..."
             notifyStatus = await Notify.enableNotify(); 
             console.log "notify permission status: #{notifyStatus}"
             loadEventListeners()
-
-        start: -> Core.startTimer(config.tomato)
     }
 
 App.init()

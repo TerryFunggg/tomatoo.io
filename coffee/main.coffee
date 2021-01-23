@@ -1,8 +1,23 @@
 config = 
-    tomato: 25,
+    tomato: 0.1,
     short: 5,
     long: 15
     interval: 4
+
+# NotificationController
+Notify = do ->
+    checkBrowserSupportNotify = () -> 'Notification' in window
+    checkPermissionEnabled = () -> 
+        Notification.permission isnt 'granted' && Notification.permission isnt 'denied'
+    permissionIsGranted = ( permission ) -> permission is 'granted'
+    enableNotify = () ->
+        if checkBrowserSupportNotify and checkPermissionEnabled
+            Notification.requestPermission().then( permissionIsGranted )
+    {
+        enableNotify,
+        send: (msg) -> new Notification(msg)
+    }    
+
 
 # handle UI
 UIController =  do ->
@@ -38,7 +53,7 @@ UIController =  do ->
     }
 
 # Core of tomatoo
-Core = do (UIController) ->
+Core = do (UIController,Notify) ->
     interval = null
     sec = 0
     numOfTomato = 0;
@@ -66,6 +81,7 @@ Core = do (UIController) ->
         sec--
         return  UIController.updateClock sec if sec > 0
         # finish a tomato
+        Notify.send("You finish a tomato! Take a rest~");
         cleanUpInterval()
         UIController.updateClock config.tomato * 60
         addTomatoStatus()
@@ -88,7 +104,7 @@ Core = do (UIController) ->
     }
 
 # App controller
-App = do (Core,UIController) ->
+App = do (Core,UIController,Notify) ->
     timer_click = () -> App.start()
     loadEventListeners = ->
         selector = UIController.getSelector()
@@ -96,6 +112,8 @@ App = do (Core,UIController) ->
     {
         init: ->
             console.log "app init..."
+            notifyStatus = await Notify.enableNotify(); 
+            console.log "notify permission status: #{notifyStatus}"
             loadEventListeners()
 
         start: -> Core.startTimer(config.tomato)

@@ -65,12 +65,9 @@ Core = do (UIController) ->
     looping = ->
         sec--
         return  UIController.updateClock sec if sec > 0
-        # finish
-        audio =  new Audio('../alert.mp3')
-        await audio.play()
+        # finish a tomato
         cleanUpInterval()
         UIController.updateClock config.tomato * 60
-        # add status
         addTomatoStatus()
         # TODO: goto short/long break if finish a tomato
         UIController.updateTimerBtn "Start"

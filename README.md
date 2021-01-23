@@ -1,6 +1,6 @@
 Now host on Githubpages. Please visit : https://terryfunggg.github.io/tomatoo.io/
 
-<img src="https://api.travis-ci.com/TerryFunggg/tomatoo.svg?branch=main"/>
+<img src="https://travis-ci.com/TerryFunggg/tomatoo.io.svg?branch=main"/>
 
 ### log
 

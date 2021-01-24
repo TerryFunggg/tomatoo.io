@@ -1,7 +1,7 @@
 config = 
-    tomato: 25,
-    short: 5,
-    long: 15
+    tomato: .1,
+    short: .2,
+    long: .3,
     interval: 4
 
 # NotificationController
@@ -27,11 +27,18 @@ UIController =  do ->
         timer_btn: "tomato-btn"
         tomato_status: "tomato-status"
 
+    bgColor =
+        tomato: "#db524d"
+        short: "#6d9197"
+        long: "#2a9d8f"
+
     domByID = (id) -> document.getElementById id
     tomatoIcon = -> '<img src="tomato.svg" />'
 
+
     {
         domByID,
+        bgColor,
         getSelector: -> selector
         
         addTomato: ->
@@ -50,13 +57,25 @@ UIController =  do ->
 
         updateTimerBtn: (str) ->
             domByID(selector.timer_btn).innerHTML = str
+
+        updateTimerBtnColor: (mode) ->
+            domByID(selector.timer_btn).style.color = bgColor[mode];
+
+        updateBackground: (mode) ->
+            document.querySelector("body").style.backgroundColor = bgColor[mode];
+
+        updateTitle: (title) ->
+            document.querySelector("title").innerHTML = title;
     }
 
 # Core of tomatoo
 Core = do (UIController,Notify) ->
     interval = null
     sec = 0
-    numOfTomato = 0;
+    numOfTomato = config.interval;
+    currentMode = "tomato"
+
+    getCurrentMode = -> currentMode
 
     cleanUpInterval = ->
         clearInterval interval
@@ -65,39 +84,56 @@ Core = do (UIController,Notify) ->
     
     cleanUpTomatoes = ->
         UIController.emptyTomatoes()
-        numOfTomato = 0;
+        numOfTomato = config.interval;
     
     addTomatoStatus = ->
-        if  numOfTomato < 4
-            numOfTomato++
+            numOfTomato--;
             UIController.addTomato()
 
-    checkStatus = -> 
-        cleanUpTomatoes() if numOfTomato >= 4
-        
+    switchMode = (mode) ->
+        currentMode = mode
+        UIController.updateTimer config[mode] * 60;
+        UIController.updateBackground mode;
+        UIController.updateTimerBtnColor mode
+
+
+    longBreak = ->
+        switchMode "long"
+        UIController.updateTimerBtnColor currentMode
+        cleanUpTomatoes()
+
+    finish = ->
+        cleanUpInterval()
+        UIController.updateTimerBtn "Start"
+
+        if currentMode is "tomato"
+            Notify.send("You finish a tomato! Take a rest~");
+            return longBreak() if numOfTomato <= 1
+            # short break
+            addTomatoStatus()
+            switchMode "short"
+
+        else
+           Notify.send("now come back and keep going~") if currentMode is "short"
+           Notify.send("You just finsihed long break~ Want to come back?") if currentMode is "long"
+           switchMode "tomato"
 
      # action for each interval loop, update timer clock            
     looping = ->
         sec--
-        return  UIController.updateTimer sec if sec > 0
-        # finish a tomato
-        Notify.send("You finish a tomato! Take a rest~");
-        cleanUpInterval()
-        UIController.updateTimer config.tomato * 60
-        addTomatoStatus()
-        # TODO: goto short/long break if finish a tomato
-        UIController.updateTimerBtn "Start"
+        return finish() unless sec > 0
+        UIController.updateTimer sec
 
     {    
+        getCurrentMode,
         startTimer: (mins) ->
             if interval is null and sec is 0
                 sec = mins * 60 || 0
-                # if already have 4 tomato, it will start a new round
-                checkStatus()
                 UIController.updateTimerBtn "Stop"
                 interval = setInterval(looping, 1000)
             else
-                # user type the stop btn
+                # user can skip rest action
+                finish() if currentMode isnt "tomato"
                 cleanUpInterval()
                 UIController.updateTimerBtn "Start"
                 UIController.updateTimer config.tomato * 60
@@ -105,12 +141,13 @@ Core = do (UIController,Notify) ->
 
 # App controller
 App = do (Core,UIController,Notify) ->
-    timer_click = () -> start()
     loadEventListeners = ->
         selector = UIController.getSelector()
-        UIController.domByID(selector.timer_btn).addEventListener("click", timer_click)
+        UIController.domByID(selector.timer_btn).addEventListener("click", start)
     
-    start =  -> Core.startTimer(config.tomato)
+    start =  -> 
+        mode = config[Core.getCurrentMode()]
+        Core.startTimer(mode)
 
     {
         init: ->

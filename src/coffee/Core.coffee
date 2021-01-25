@@ -26,10 +26,8 @@ switchMode = (mode) ->
     UIController.updateBackground mode;
     UIController.updateTimerBtnColor mode
 
-
 longBreak = ->
     switchMode "long"
-    UIController.updateTimerBtnColor currentMode
     cleanUpTomatoes()
 
 finish = ->

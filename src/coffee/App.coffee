@@ -5,9 +5,9 @@ import * as Core from "./Core.coffee"
 
 loadEventListeners = ->
     selector = UIController.getSelector()
-    UIController.domByID(selector.timer_btn).addEventListener("click", start)
+    UIController.domByID(selector.timer_btn).addEventListener("click", startTimer)
 
-start =  ->
+startTimer =  ->
     mode = config[Core.getCurrentMode()]
     Core.startTimer(mode)
 

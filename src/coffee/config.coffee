@@ -1,5 +1,5 @@
 export default config =
-    tomato: .1,
-    short: .2,
-    long: .3,
+    tomato: 25,
+    short: 5,
+    long: 15,
     interval: 4

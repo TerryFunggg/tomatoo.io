@@ -3,4 +3,5 @@ public/js
 public/css
 public/*.svg
 public/*.js
+public/*.js.map
 .log

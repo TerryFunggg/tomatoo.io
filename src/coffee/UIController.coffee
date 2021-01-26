@@ -5,6 +5,10 @@ selector =
     sec: "timer-sec"
     timer_btn: "tomato-btn"
     tomato_status: "tomato-status"
+    setting_btn: "tools-setting"
+    switch_btn: "switch-btn"
+    switch_active: "switch-btn-active"
+    tomato_range: "tomato-range"
 
 bgColor =
     tomato: "#db524d"
@@ -13,6 +17,7 @@ bgColor =
 
 
 export domByID = (id) -> document.getElementById id
+export domByClass = (c) -> document.querySelector ".#{c}";
 export getSelector= -> selector
 export getColorSelector= -> bgColor
 
@@ -43,3 +48,24 @@ export updateBackground= (mode) ->
 
 export updateTitle= (title) ->
     document.querySelector("title").innerHTML = title;
+
+export toggleSettingMenu = ->
+    menuStyle = domByClass("setting-menu").style
+    if menuStyle.display is "flex"
+        menuStyle.display =  "none"
+    else
+        setTimeout(() ->
+            menuStyle.display = "flex"
+        ,150)
+
+export getRangeValue = -> domByID(selector.tomato_range).value
+
+export toggleSwitch = (active) ->
+   switcher = domByClass(selector.switch_btn)
+   switch_btn = switcher.childNodes[1]
+   if active
+       switcher.style.backgroundColor = "#5fae64"
+       switch_btn.classList.add selector.switch_active;
+   else
+       switcher.style.backgroundColor = bgColor.tomato
+       switch_btn.classList.remove selector.switch_active;

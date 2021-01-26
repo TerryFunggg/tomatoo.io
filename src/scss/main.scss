@@ -12,7 +12,7 @@ body {
     background-color: $primary-color;
     color: $light-color;
     display: grid;
-    grid-template-rows: 60px auto 10px;
+    grid-template-rows: auto auto 10px;
 
     a {
         text-decoration: none;
@@ -20,30 +20,98 @@ body {
     }
 
     nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
+        margin-top: 10px;
 
-        .tools {
-            font-size: 1rem;
+        .nav-header {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
 
-            i {
-                padding: 5px;
+            .options {
+                font-size: 1rem;
+
+                i {
+                    padding: 5px;
+                }
+
+                .option {
+                    padding: 5px;
+                    display: inline-block;
+                }
+
+                .option:hover {
+                    @include btn-hover;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .setting-menu {
+            display: none;
+            padding: 20px;
+            background-color: darken($light-color, 2%);
+            color: lighten($dark-color, 40%);
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            animation: toggle-menu 0.1s;
+            overflow: hidden;
+
+            .settings {
+                display: grid;
+                grid-template-columns: repeat(2, auto);
+                gap: 0.9rem;
             }
 
-            a:hover {
-                @include btn-hover;
+            input[type='ranger'] {
+                width: 10px;
             }
 
-            &-report {
-                padding: 5px;
-            }
+            .switch-btn {
+                input[type='checkbox'] {
+                    display: none;
+                }
 
-            &-setting {
-                padding: 5px;
+                width: 60px;
+                height: 30px;
+                border-radius: 18px;
+                //background-color: darken($light-color, 10%);
+                background-color: $primary-color;
+                display: flex;
+                align-items: center;
+                padding-left: 5px;
+                padding-right: 5px;
+                cursor: pointer;
+
+                &-circle {
+                    //background-color: $primary-color;
+                    background-color: $light-color;
+                    transform: translateX(0px);
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    transition: 200ms;
+                }
+
+                &-active {
+                    transform: translateX(30px);
+                    transition: 300ms;
+                }
             }
         }
     }
+
+    @keyframes toggle-menu {
+        0% {
+            height: 0;
+        }
+
+        100% {
+            height: 50px;
+        }
+    }
+
 
     main {
         .tomato {

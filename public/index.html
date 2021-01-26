@@ -13,13 +13,32 @@
 
 <body>
     <nav>
+      <div class="nav-header">
         <h2>Tomato Timer</h2>
-        <div class="tools">
-            <!-- TODO: Setting and Report -->
+        <div class="options">
+          <div class="option">
             <a href="#" class="tools-report"><i class="fas fa-chart-bar"></i>Report</a>
-            <a href="#" class="tools-setting"><i class="fas fa-sliders-h"></i>Setting</a>
+          </div>
+          <div class="option">
+            <a href="#" class="tools-setting"><i class="fas fa-chart-bar"></i>Setting</a>
+          </div>
+        </div>
+      </div>
+
+        <div class="setting-menu">
+          <div class="settings">
+            <span>Auto Break :</span>
+            <div class="switch-btn">
+              <div class="switch-btn-circle"></div>
+              <input type="checkbox">
+            </div>
+            <span>Tomato :</span>
+            <input id="tomato-range" type="range" name="tomato_value" step="5" value="25" min="25" max="60" />
+          </div>
         </div>
     </nav>
+
+
 
     <main>
         <div class="tomato">

@@ -6,6 +6,7 @@ interval = null
 sec = 0
 numOfTomato = config.interval;
 currentMode = "tomato"
+auto_break = false;
 
 cleanUpInterval = ->
     clearInterval interval
@@ -25,6 +26,7 @@ switchMode = (mode) ->
     UIController.updateTimer config[mode] * 60;
     UIController.updateBackground mode;
     UIController.updateTimerBtnColor mode
+    startTimer config[mode] if auto_break and mode isnt "tomato"
 
 longBreak = ->
     switchMode "long"
@@ -65,3 +67,13 @@ export startTimer = (mins) ->
         cleanUpInterval()
         UIController.updateTimerBtn "Start"
         UIController.updateTimer config.tomato * 60
+
+export toggleAutoStartBreak = ->
+    auto_break = !auto_break;
+    UIController.toggleSwitch auto_break
+
+export rangeHandler = ->
+    value = UIController.getRangeValue()
+    config.tomato = value
+    if interval is null
+        UIController.updateTimer value * 60

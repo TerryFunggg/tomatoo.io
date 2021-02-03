@@ -9,10 +9,11 @@ Tomatoo is a Timer base on Tomato technique time management.
 ### Feature
 
 - basic tomato functionality
+- never require any user information
 - support the time range configuration (25 min ~ 60 min) for one tomato
 - short break after completed a tomato (5 min)
 - long break after completed 4 tomato (15 min)
-- stop the break by press the stop button can skip the current break
-- or user can activate the ~auto break~ button, it will start the break automatically
+- user can activate the `auto break` button, it will start the break automatically
 - notification support (need bowser support and user permission)
 - (TODO) report function
+

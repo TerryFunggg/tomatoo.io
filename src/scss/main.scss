@@ -141,6 +141,10 @@ body {
                 &:hover {
                     background-color: darken($light-color, 4%);
                 }
+
+                &:focus{
+                    outline: 0;
+                }
             }
 
             &-status {

@@ -4,11 +4,17 @@ import * as UIController from "./UIController.coffee"
 import * as Core from "./Core.coffee"
 
 loadEventListeners = ->
+    activateListeners = (type, domEl,listener) ->  UIController.getElement(domEl).addEventListener(type, listener)
+    activateListeners ...e for e in getEvents()
+
+getEvents = ->
     selector = UIController.getSelector()
-    UIController.domByID(selector.timer_btn).addEventListener("click", startTimer)
-    UIController.domByClass(selector.setting_btn).addEventListener("click", UIController.toggleSettingMenu)
-    UIController.domByClass(selector.switch_btn).addEventListener("click", Core.toggleAutoStartBreak)
-    UIController.domByID(selector.tomato_range).addEventListener("input", Core.rangeHandler)
+    [
+        ["click", selector.timer_btn, startTimer],
+        ["click", selector.setting_btn, UIController.toggleSettingMenu],
+        ["click", selector.switch_btn, Core.toggleAutoStartBreak],
+        ["input", selector.tomato_range, Core.rangeHandler]
+    ]
 
 startTimer =  ->
     mode = config[Core.getCurrentMode()]

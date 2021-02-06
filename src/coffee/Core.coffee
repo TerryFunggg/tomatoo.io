@@ -1,6 +1,6 @@
 import config from "./config.coffee"
 import * as Notify from "./Notify.coffee"
-import * as UIController from "./UIController.coffee"
+import UI from "./UIController.coffee"
 
 interval = null
 sec = 0
@@ -14,18 +14,16 @@ cleanUpInterval = ->
     sec = 0
 
 cleanUpTomatoes = ->
-    UIController.emptyTomatoes()
+    UI.instance().emptyTomatoes()
     numOfTomato = config.interval;
 
 addTomatoStatus = ->
         numOfTomato--;
-        UIController.addTomato()
+        UI.instance().addTomato()
 
 switchMode = (mode) ->
     currentMode = mode
-    UIController.updateTimer config[mode] * 60;
-    UIController.updateBackground mode;
-    UIController.updateTimerBtnColor mode
+    UI.instance().switchMode(config[mode] * 60, mode)
     startTimer config[mode] if auto_break and mode isnt "tomato"
 
 longBreak = ->
@@ -34,7 +32,7 @@ longBreak = ->
 
 finish = ->
     cleanUpInterval()
-    UIController.updateTimerBtn "Start"
+    UI.instance().updateTimerBtn "Start"
 
     if currentMode is "tomato"
         Notify.send("You finish a tomato! Take a rest~");
@@ -52,28 +50,28 @@ finish = ->
 looping = ->
     sec--
     return finish() unless sec > 0
-    UIController.updateTimer sec
+    UI.instance().updateTimer sec
 
 export getCurrentMode = -> currentMode
 
 export startTimer = (mins) ->
     if interval is null and sec is 0
         sec = mins * 60 || 0
-        UIController.updateTimerBtn "Stop"
+        UI.instance().updateTimerBtn "Stop"
         interval = setInterval(looping, 1000)
     else
         # user can skip rest action
         finish() if currentMode isnt "tomato"
         cleanUpInterval()
-        UIController.updateTimerBtn "Start"
-        UIController.updateTimer config.tomato * 60
+        UI.instance().updateTimerBtn "Start"
+        UI.instance().updateTimer config.tomato * 60
 
 export toggleAutoStartBreak = ->
     auto_break = !auto_break;
-    UIController.toggleSwitch auto_break
+    UI.instance().toggleSwitch auto_break
 
 export rangeHandler = ->
-    value = UIController.getRangeValue()
+    value = UI.instance().getRangeValue()
     config.tomato = value
     if interval is null
-        UIController.updateTimer value * 60
+        UI.instance().updateTimer value * 60

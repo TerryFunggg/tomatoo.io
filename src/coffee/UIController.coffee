@@ -1,73 +1,44 @@
-import Tomato from '../tomato.svg'
+import UIBase from "./UIComponents/UIBase.coffee"
+import Menu from "./UIComponents/Menu.coffee"
+import Timer from "./UIComponents/Timer.coffee"
+import StatusBar from "./UIComponents/StatusBar.coffee"
+import Background from "./UIComponents/Background.coffee"
 
-selector =
-    min: ".timer-min"
-    sec: ".timer-sec"
-    timer_btn: "#tomato-btn"
-    tomato_status: ".tomato-status"
-    setting_btn: ".tools-setting"
-    switch_btn: ".switch-btn"
-    switch_active: "switch-btn-active"
-    tomato_range: "#tomato-range"
-    setting_menu: ".setting-menu"
+export default class UIController extends UIBase
 
-bgColor =
-    tomato: "#db524d"
-    short: "#6d9197"
-    long: "#2a9d8f"
+    constructor: ->
+        super()
+        @ui         = null;
+        @timer      = new Timer()
+        @statusBar  = new StatusBar()
+        @menu       = new Menu()
+        @background = new Background()
+
+    @instance: ->
+        return @ui if ui?
+        @ui = new UIController();
 
 
-export getElement = (el) -> document.querySelector el
-# export domByID = (id) -> document.getElementById id
-# export domByClass = (c) -> document.querySelector ".#{c}";
-export getSelector= -> selector
-export getColorSelector= -> bgColor
+    addTomato: -> @statusBar.add()
+    emptyTomatoes: -> @statusBar.empty()
 
-export addTomato= ->
-    status = getElement(selector.tomato_status);
-    img = new Image()
-    img.src = Tomato
-    status.appendChild img
+    switchMode: (sec,mode) ->
+        @updateTimer sec
+        @updateTimerBtn mode
+        @timer.updateBtnColor mode
+        @background.update mode
 
-export emptyTomatoes= ->
-    status = getElement(selector.tomato_status)
-    status.innerHTML = "";
 
-export updateTimer= (sec) ->
-    minutes = Math.floor(sec/60) + ""
-    seconds = sec % 60 + ""
-    getElement(selector.min).innerHTML =  minutes.padStart(2,'0')
-    getElement(selector.sec).innerHTML =  seconds.padStart(2,'0')
+    updateTimerBtn: (text) -> @timer.updateBtn text
 
-export updateTimerBtn= (str) ->
-    getElement(selector.timer_btn).innerHTML = str
+    updateTimer: (sec) => @timer.update sec
 
-export updateTimerBtnColor= (mode) ->
-    getElement(selector.timer_btn).style.color = bgColor[mode];
+    toggleSwitch: (status) -> @menu.toggleSwitch  status
 
-export updateBackground= (mode) ->
-    getElement("body").style.backgroundColor = bgColor[mode];
+    getRangeValue: -> @menu.getRangeValue()
 
-export updateTitle= (title) ->
-    getElement("title").innerHTML = title;
+    toggleSettingMenu: => @menu.toggle()
 
-export toggleSettingMenu = ->
-    menuStyle = getElement(selector.setting_menu).style
-    if menuStyle.display is "flex"
-        menuStyle.display =  "none"
-    else
-        setTimeout(() ->
-            menuStyle.display = "flex"
-        ,150)
+    getElement: (el) -> UIBase.getElement el
 
-export getRangeValue = -> getElement(selector.tomato_range).value
-
-export toggleSwitch = (active) ->
-   switcher = getElement(selector.switch_btn)
-   switch_btn = switcher.childNodes[1]
-   if active
-       switcher.style.backgroundColor = "#5fae64"
-       switch_btn.classList.add selector.switch_active;
-   else
-       switcher.style.backgroundColor = bgColor.tomato
-       switch_btn.classList.remove selector.switch_active;
+    getSelector: -> @selector

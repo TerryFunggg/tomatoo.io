@@ -10,7 +10,6 @@ loadEventListeners = ->
 getEvents = ->
     selector = UI.instance().getSelector()
     [
-        ["click", selector.timer_btn, startTimer],
         ["click", selector.setting_btn, UI.instance().toggleSettingMenu],
         ["click", selector.switch_btn, Core.toggleAutoStartBreak],
         ["input", selector.tomato_range, Core.rangeHandler]

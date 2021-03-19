@@ -40,13 +40,13 @@
 
 
 
-    <main>
+    <main data-controller='timer' data-timer-mode-value="tomato">
         <div class="tomato">
             <div class="timer">
-                <span class="timer-min" id="timer-min">25</span>:<span class="timer-sec" id="timer-sec">00</span>
+                <span class="timer-min" data-timer-target='minute'>25</span>:<span class="timer-sec" data-timer-target='second'>00</span>
             </div>
-            <button id="tomato-btn" class="tomato-btn">start</button>
-            <div class="tomato-status">
+            <button class="tomato-btn" data-timer-target='startbtn' data-action="timer#startTimer">start</button>
+            <div data-timer-target="statusbar" class="tomato-status">
             </div>
         </div>
     </main>

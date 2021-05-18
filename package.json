@@ -10,7 +10,7 @@
     "build:sass": "node-sass src/scss -o public/css --recursive",
     "build:coffee": "coffee -o public/js/ -c src/coffee/ ",
     "build": "npm run build:sass && npm run build:coffee",
-    "build:webpack": "webpack --config webpack.prod.js",
+    "build:webpack": "./node_modules/.bin/webpack --config webpack.prod.js",
     "start": "webpack serve --open --config webpack.dev.js",
     "test": "mocha --require coffeescript/register"
   },

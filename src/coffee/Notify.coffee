@@ -1,3 +1,5 @@
+import alertSound from "../alert.wav";
+
 checkBrowserSupportNotify = -> 'Notification' in window
 
 checkPermissionEnabled = ->
@@ -9,7 +11,9 @@ enableNotify = ->
     if checkBrowserSupportNotify and checkPermissionEnabled
         Notification.requestPermission().then( permissionIsGranted )
 
-send = (msg) -> new Notification(msg)
+send = (msg) ->
+    new Notification(msg)
+    new Audio(alertSound).play()
 
 export {
         enableNotify,

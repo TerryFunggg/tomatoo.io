@@ -1,4 +1,4 @@
-language: node_js:11.10.0
+language: node_js
 node_js:
   - "stable"
 cache:

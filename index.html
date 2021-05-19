@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomatoo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+      <div class="nav-header">
+        <h2>Tomato Timer</h2>
+        <div class="options">
+          <div class="option">
+            <a href="#" class="tools-report"><i class="fas fa-chart-bar"></i>Report</a>
+          </div>
+          <div class="option">
+            <a href="#" class="tools-setting"><i class="fas fa-chart-bar"></i>Setting</a>
+          </div>
+        </div>
+      </div>
+
+        <div class="setting-menu">
+          <div class="settings">
+            <span>Auto Break :</span>
+            <div class="switch-btn">
+              <div class="switch-btn-circle"></div>
+              <input type="checkbox">
+            </div>
+            <span>Tomato :</span>
+            <input id="tomato-range" type="range" name="tomato_value" step="5" value="25" min="25" max="60" />
+          </div>
+        </div>
+    </nav>
+
+
+
+    <main>
+        <div class="tomato">
+            <div class="timer">
+                <span class="timer-min" id="timer-min">25</span>:<span class="timer-sec" id="timer-sec">00</span>
+            </div>
+            <button id="tomato-btn" class="tomato-btn">start</button>
+            <div class="tomato-status">
+            </div>
+        </div>
+    </main>
+
+    <div class="report">
+    </div>
+    <footer>
+        <p>Tomato Icon made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
+                href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p>
+        <p>Icons made by <a href="https://fontawesome.com/" title="Fontawesone">Fontawesone</a> from <a
+                href="https://fontawesome.com/">fontawesome.com</a></p>
+    </footer>
+    <script src="./app.bundle.js"></script>
+</body>
+
+</html>

@@ -25,9 +25,9 @@
   },
   "homepage": "https://github.com/TerryFunggg/tomatoo#readme",
   "dependencies": {
-    "node-sass": "^5.0.0"
   },
   "devDependencies": {
+    "node-sass": "^5.0.0",
     "coffee-loader": "^2.0.0",
     "coffeescript": "^2.5.1",
     "concurrently": "^5.3.0",

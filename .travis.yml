@@ -4,8 +4,6 @@ node_js:
 cache:
   directories:
   - node_modules
-script:
-  - npm run build:webpack
 deploy:
   provider: pages
   skip_cleanup: true

@@ -1,0 +1,121 @@
+:root {
+  --primary-color: #db524d;
+  --light-color: #fff;
+  --dark-color: #0f0f0f;
+  --shortbreak-color: #6d9197;
+  --longbreak-color: #2a9d8f;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  display: grid;
+  grid-template-rows: auto auto 10px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--light-color);
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav .nav-header {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+nav .nav-header .options {
+  font-size: 1rem;
+}
+
+nav .nav-header .options i {
+  padding: 5px;
+}
+
+.options .option {
+  padding: 5px;
+  display: inline-block;
+}
+
+.options .option:hover {
+  cursor: pointer;
+  background-color: rgba(189, 82, 77, 0.7);
+  border-radius: 10px;
+}
+
+main {
+}
+
+main .tomato {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.tomato .timer {
+  text-align: center;
+  font-size: 5rem;
+  font-weight: bold;
+}
+
+.tomato .tomato-btn {
+  border: none;
+  margin-top: 40px;
+  color: var(--primary-color);
+  background-color: var(--light-color);
+  font-size: 2rem;
+  padding: 10px 40px;
+  cursor: pointer;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.tomato .tomato-btn:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.tomato .tomato-btn:focus {
+  outline: 0;
+}
+
+.tomato .tomato-status {
+  padding: 20px 10px;
+  border-radius: 5px;
+  display: flex;
+  margin-top: 40px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.tomato .tomato-status img {
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+}
+
+footer {
+  padding: 10px;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+footer a {
+  color: var(--primary-color);
+}
